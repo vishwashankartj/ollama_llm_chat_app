@@ -1,0 +1,8 @@
+[
+    {   
+        "id": "mongodb",
+        "mongo_usrname" : "",
+        "mongo_pwd" : "",
+        "cluster_name" : "personalAi"
+    }
+]
