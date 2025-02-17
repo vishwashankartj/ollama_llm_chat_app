@@ -1,0 +1,34 @@
+services:
+  fastapi-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/personalAI
+
+  flask-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.flask
+    ports:
+      - "5001:5000"
+    depends_on:
+      - fastapi-service
+      - mongodb
+    environment:
+      - FASTAPI_URL=http://fastapi-service:8000
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
